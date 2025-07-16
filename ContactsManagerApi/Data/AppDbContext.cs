@@ -1,13 +1,15 @@
-using ContactManagerApi.Models;
+using ContactsManagerApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContactManagerApi.Data
+namespace ContactsManagerApi.Data
 {
     public class ApPDbContext : DbContext
     {
         public ApPDbContext(DbContextOptions<ApPDbContext> options) : base(options)
         {
-            public DbSet<Contact> Contacts => Set<Contact>();
+
         }
+        
+        public DbSet<Contact> Contacts => Set<Contact>();
     }
 }

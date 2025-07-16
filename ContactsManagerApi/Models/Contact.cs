@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ContactManagerApi.Models
+namespace ContactsManagerApi.Models
 {
     public class Contact
     {
