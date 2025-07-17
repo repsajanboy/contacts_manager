@@ -1,3 +1,4 @@
+import 'package:contacts_manager_ui/data/model/contact_model.dart';
 import 'package:contacts_manager_ui/presentation/add_contact/add_contact.dart';
 import 'package:contacts_manager_ui/presentation/api_configuration/api_configuration.dart';
 import 'package:contacts_manager_ui/presentation/contact/contact.dart';
@@ -18,8 +19,9 @@ class AppRouter {
           builder: (_) => ContactListScreen(),
         );
       case RouteNames.contactScreen:
+        final contact = routeSettings.arguments as ContactModel;
         return MaterialPageRoute(
-          builder: (_) => ContactScreen(),
+          builder: (_) => ContactScreen(contact: contact),
         );
       case RouteNames.addContactScreen:
         return MaterialPageRoute(
