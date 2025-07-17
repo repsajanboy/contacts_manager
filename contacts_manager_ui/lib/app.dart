@@ -22,7 +22,11 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => ContactListBloc()..add(ContactListFetched()),
-          )
+          ),
+          BlocProvider(
+            create: (context) =>
+                ApiConfigurationBloc()..add(ApiBaseUrlConfigure()),
+          ),
         ],
         child: MaterialApp(
           title: 'Contact Manager App',
