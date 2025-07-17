@@ -2,7 +2,6 @@ import 'package:contacts_manager_ui/routing/app_router_names.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class ApiConfigurationScreen extends StatelessWidget {
   ApiConfigurationScreen({super.key});
 
@@ -12,7 +11,6 @@ class ApiConfigurationScreen extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('baseApiAddress', baseApi);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,21 +32,16 @@ class ApiConfigurationScreen extends StatelessWidget {
               controller: _baseApiController,
               cursorColor: Colors.black,
               decoration: InputDecoration(
-                hintText: 'https://localhost:5001',
-                hintStyle: TextStyle(
-                  color: Colors.black54,
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black
-                  )
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
+                  hintText: 'https://localhost:5001',
+                  hintStyle: TextStyle(
+                    color: Colors.black54,
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black)),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
                     color: Colors.black,
-                  )
-                )
-              ),
+                  ))),
             ),
             SizedBox(height: 20.0),
             SizedBox(
@@ -59,16 +52,24 @@ class ApiConfigurationScreen extends StatelessWidget {
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () {
-                  _saveBaseAPI(_baseApiController.text);
-                  Navigator.pushNamed(context, RouteNames.contactListScreen);
+                  final baseApi = _baseApiController.text.trim();
+
+                  if (baseApi.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please enter api base address!'),
+                      ),
+                    );
+                  } else {
+                    _saveBaseAPI(baseApi);
+                    Navigator.pushNamed(context, RouteNames.contactListScreen);
+                  }
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
                     'Continue',
-                    style: TextStyle(
-                      fontSize: 18.0
-                    ),
+                    style: TextStyle(fontSize: 18.0),
                   ),
                 ),
               ),
