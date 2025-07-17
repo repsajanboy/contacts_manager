@@ -16,7 +16,7 @@ namespace ContactManagerApi.Controllers
             _context = context;
         }
 
-                // GET: /api/contacts
+        // GET: /api/contacts
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

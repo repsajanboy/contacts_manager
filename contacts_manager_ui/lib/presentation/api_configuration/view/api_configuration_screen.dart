@@ -1,5 +1,7 @@
+import 'package:contacts_manager_ui/blocs/bloc_barrel.dart';
 import 'package:contacts_manager_ui/routing/app_router_names.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiConfigurationScreen extends StatelessWidget {
@@ -62,6 +64,8 @@ class ApiConfigurationScreen extends StatelessWidget {
                     );
                   } else {
                     _saveBaseAPI(baseApi);
+                    BlocProvider.of<ContactListBloc>(context)
+                        .add(ContactListFetched());
                     Navigator.pushNamed(context, RouteNames.contactListScreen);
                   }
                 },
