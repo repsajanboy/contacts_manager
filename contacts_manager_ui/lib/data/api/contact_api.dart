@@ -26,7 +26,7 @@ class ContactApi {
 
   Future<dynamic> getContact(int id) async {}
 
-  Future<dynamic> createContact(Map<String, dynamic> data) async {
+  Future<void> createContact(Map<String, dynamic> data) async {
     final baseUrl = await _getBaseUrl();
     if (baseUrl == null) {
       throw Exception("Base URL not set.");
@@ -39,8 +39,8 @@ class ContactApi {
       body: jsonEncode(data),
     );
 
-    if(response.statusCode == 200) {
-      return json.decode(response.body);
+    if (response.statusCode == 201) {
+      print('Added contact successfully');
     } else {
       throw Exception("Failed to add contact: ${response.statusCode}");
     }
@@ -48,5 +48,19 @@ class ContactApi {
 
   Future<dynamic> editContact() async {}
 
-  Future<dynamic> deleteContact(int id) async {}
+  Future<void> deleteContact(int id) async {
+    final baseUrl = await _getBaseUrl();
+    if (baseUrl == null) {
+      throw Exception("Base URL not set.");
+    }
+
+    final url = Uri.parse('$baseUrl/api/contacts/$id');
+    final response = await http.delete(url);
+
+    if (response.statusCode == 204) {
+      print('Deleted successfully');
+    } else {
+      throw Exception("Failed to delete contact: ${response.statusCode}");
+    }
+  }
 }

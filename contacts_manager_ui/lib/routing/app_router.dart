@@ -28,8 +28,9 @@ class AppRouter {
           builder: (_) => AddContactScreen(),
         );
       case RouteNames.editContactScreen:
+        final contact = routeSettings.arguments as ContactModel;
         return MaterialPageRoute(
-          builder: (_) => EditContactScreen(),
+          builder: (_) => EditContactScreen(contact: contact),
         );
       default:
         return MaterialPageRoute(

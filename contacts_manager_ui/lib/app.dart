@@ -27,6 +27,9 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 ApiConfigurationBloc()..add(ApiBaseUrlConfigure()),
           ),
+          BlocProvider(
+            create: (context) => EditContactBloc(),
+          )
         ],
         child: MaterialApp(
           title: 'Contact Manager App',
