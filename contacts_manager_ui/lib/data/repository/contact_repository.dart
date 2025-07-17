@@ -2,7 +2,7 @@ import 'package:contacts_manager_ui/data/api/contact_api.dart';
 import 'package:contacts_manager_ui/data/model/contact_model.dart';
 
 class ContactRepository {
-  
+
   final ContactApi contactApi = ContactApi();
   
   Future<List<ContactModel>> getAllContacts() async {
@@ -10,5 +10,9 @@ class ContactRepository {
     return result.map((e) {
       return ContactModel.fromJson(e);
     }).toList();
+  }
+
+  Future<void> addContact(Map<String, dynamic> data) async {
+    await contactApi.createContact(data);
   }
 }
