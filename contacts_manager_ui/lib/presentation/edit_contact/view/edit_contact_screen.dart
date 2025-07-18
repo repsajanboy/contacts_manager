@@ -12,7 +12,8 @@ class EditContactScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => EditContactBloc(),
+      create: (context) =>
+          EditContactBloc()..add(EditContactInitialized(contact: contact)),
       child: Scaffold(
         appBar: AppBar(
           actions: [
@@ -37,8 +38,11 @@ class EditContactScreen extends StatelessWidget {
                             builder: (context, state) {
                               return ElevatedButton(
                                 onPressed: () {
-                                  context.read<EditContactBloc>().add(ContactDeleted(id: contact.id));
-                                  Navigator.pushNamed(context, RouteNames.contactListScreen);
+                                  context
+                                      .read<EditContactBloc>()
+                                      .add(ContactDeleted(id: contact.id));
+                                  Navigator.pushNamed(
+                                      context, RouteNames.contactListScreen);
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.red,
@@ -99,7 +103,26 @@ class EditContactScreen extends StatelessWidget {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text('Name:'), Text(contact.name ?? '')],
+                      children: [
+                        Text('Name:'),
+                        BlocBuilder<EditContactBloc, EditContactState>(
+                          builder: (context, state) {
+                            return TextFormField(
+                              initialValue: state.name ?? contact.name,
+                              decoration: InputDecoration(
+                                border: UnderlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                ),
+                              ),
+                              onChanged: (value) {
+                                context
+                                    .read<EditContactBloc>()
+                                    .add(EditContactNameChanged(name: value));
+                              },
+                            );
+                          },
+                        ),
+                      ],
                     ),
                     Divider(
                       color: Colors.white,
@@ -108,7 +131,23 @@ class EditContactScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Email Address:'),
-                        Text(contact.email ?? '')
+                        BlocBuilder<EditContactBloc, EditContactState>(
+                          builder: (context, state) {
+                            return TextFormField(
+                              initialValue: state.email ?? contact.email,
+                              decoration: InputDecoration(
+                                border: UnderlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                ),
+                              ),
+                              onChanged: (value) {
+                                context
+                                    .read<EditContactBloc>()
+                                    .add(EditContactEmailChanged(email: value));
+                              },
+                            );
+                          },
+                        )
                       ],
                     ),
                     Divider(
@@ -118,12 +157,55 @@ class EditContactScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Phone Number:'),
-                        Text(contact.phoneNumber ?? '')
+                        BlocBuilder<EditContactBloc, EditContactState>(
+                          builder: (context, state) {
+                            return TextFormField(
+                              initialValue:
+                                  state.phoneNumber ?? contact.phoneNumber,
+                              decoration: InputDecoration(
+                                border: UnderlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                ),
+                              ),
+                              onChanged: (value) {
+                                context.read<EditContactBloc>().add(
+                                    EditContactPhoneNumberChanged(
+                                        phoneNumber: value));
+                              },
+                            );
+                          },
+                        )
                       ],
                     ),
                   ],
                 ),
               ),
+            ),
+            SizedBox(height: 20),
+            BlocBuilder<EditContactBloc, EditContactState>(
+              builder: (context, state) {
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context
+                          .read<EditContactBloc>()
+                          .add(EditContactSaved(id: contact.id));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xff023563),
+                      foregroundColor: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        'Update Contact',
+                      ),
+                    ),
+                  ),
+                );
+              },
             )
           ],
         ),

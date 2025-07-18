@@ -16,6 +16,10 @@ class ContactRepository {
     await contactApi.createContact(data);
   }
 
+  Future<void> updateContact(int id, Map<String, dynamic> data) async {
+    await contactApi.editContact(id, data);
+  }
+
   Future<void> deleteContact(int id) async {
     await contactApi.deleteContact(id);
   }

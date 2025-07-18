@@ -46,7 +46,25 @@ class ContactApi {
     }
   }
 
-  Future<dynamic> editContact() async {}
+  Future<dynamic> editContact(int id, Map<String, dynamic> data) async {
+    final baseUrl = await _getBaseUrl();
+    if (baseUrl == null) {
+      throw Exception("Base URL not set.");
+    }
+
+    final url = Uri.parse('$baseUrl/api/contacts/$id');
+    final response = await http.put(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(data),
+    );
+
+    if(response.statusCode == 204) {
+      print('Contact updated successfully');
+    } else {
+      throw Exception("Failed to delete contact: ${response.statusCode}");
+    }
+  }
 
   Future<void> deleteContact(int id) async {
     final baseUrl = await _getBaseUrl();
