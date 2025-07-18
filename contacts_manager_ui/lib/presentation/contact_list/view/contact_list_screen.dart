@@ -4,6 +4,8 @@ import 'package:contacts_manager_ui/routing/app_router_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'widget/api_configuration_edit.dart';
+
 class ContactListScreen extends StatelessWidget {
   const ContactListScreen({super.key});
 
@@ -16,7 +18,22 @@ class ContactListScreen extends StatelessWidget {
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24.0),
+                        topRight: Radius.circular(24.0),
+                      ),
+                    ),
+                    builder: (BuildContext context) {
+                      return BlocProvider(
+                        create: (context) => ApiConfigurationBloc()..add(ApiBaseUrlInitialized()),
+                        child: apiConfigurationEdit(context),
+                      );
+                    });
+              },
               icon: Icon(Icons.settings_outlined),
             )
           ],

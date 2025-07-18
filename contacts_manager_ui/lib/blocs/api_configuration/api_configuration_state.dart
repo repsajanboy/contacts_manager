@@ -1,10 +1,28 @@
 part of 'api_configuration_bloc.dart';
 
-@immutable
-sealed class ApiConfigurationState {}
+class ApiConfigurationState extends Equatable {
+  final String? apiBaseUrl;
 
-final class ApiConfigurationInitial extends ApiConfigurationState {}
+  const ApiConfigurationState({
+    this.apiBaseUrl,
+  });
 
-final class ApiBaseUrlAlreadyConfigured extends ApiConfigurationState {}
+  ApiConfigurationState copyWith({
+    String? apiBaseUrl,
+  }) {
+    return ApiConfigurationState(
+      apiBaseUrl: apiBaseUrl ?? this.apiBaseUrl,
+    );
+  }
 
-final class ApiBaseUrlNotConfigured extends ApiConfigurationState {}
+  @override
+  List<Object?> get props => [
+        apiBaseUrl,
+      ];
+}
+
+class ApiConfigurationInitial extends ApiConfigurationState {}
+
+class ApiBaseUrlAlreadyConfigured extends ApiConfigurationState {}
+
+class ApiBaseUrlNotConfigured extends ApiConfigurationState {}
