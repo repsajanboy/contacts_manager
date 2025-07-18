@@ -24,7 +24,11 @@ class ContactScreen extends StatelessWidget {
               children: [
                 Text(
                   'Edit',
-                  style: TextStyle(color: Colors.black, fontSize: 18.0),
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    color: Colors.black,
+                    fontSize: 18.0,
+                  ),
                 ),
                 SizedBox(width: 5.0),
                 Icon(
@@ -40,11 +44,13 @@ class ContactScreen extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.all(20.0),
-            decoration: BoxDecoration(color: Colors.grey[300]),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+            ),
             child: Center(
               child: CircleAvatar(
                 radius: 60.0,
-                backgroundColor: Colors.grey,
+                backgroundColor: Colors.grey[400],
                 child: Icon(
                   Icons.person,
                   size: 75,
@@ -55,36 +61,80 @@ class ContactScreen extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Container(
-            decoration: BoxDecoration(color: Colors.grey[300]),
+            decoration: BoxDecoration(color: Colors.grey[200]),
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 24.0, vertical: 18.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text('Name:'), Text(contact.name ?? '')],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.person_outline,
+                          color: Colors.black54,
+                          size: 32,
+                        ),
+                        SizedBox(width: 20.0),
+                        Text(
+                          contact.name ?? '',
+                          style: TextStyle(
+                            fontFamily: 'WorkSans',
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Divider(
                     color: Colors.white,
+                    thickness: 3,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Email Address:'),
-                      Text(contact.email ?? '')
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.email_outlined,
+                          color: Colors.black54,
+                          size: 32,
+                        ),
+                        SizedBox(width: 20.0),
+                        Text(
+                          contact.email ?? '',
+                          style: TextStyle(
+                            fontFamily: 'WorkSans',
+                            fontSize: 16.0,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   Divider(
                     color: Colors.white,
+                    thickness: 3,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Phone Number:'),
-                      Text(contact.phoneNumber ?? '')
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.phone_outlined,
+                          color: Colors.black54,
+                          size: 32,
+                        ),
+                        SizedBox(width: 20.0),
+                        Text(
+                          contact.phoneNumber ?? '',
+                          style: TextStyle(
+                            fontFamily: 'WorkSans',
+                            fontSize: 16.0,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),

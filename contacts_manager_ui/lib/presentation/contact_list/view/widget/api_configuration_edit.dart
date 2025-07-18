@@ -22,7 +22,9 @@ Widget apiConfigurationEdit(BuildContext context) {
             Text(
               'Update API base url:',
               style: TextStyle(
+                fontFamily: 'Nunito',
                 fontSize: 18.0,
+                fontWeight: FontWeight.w600,
               ),
             ),
             BlocBuilder<ApiConfigurationBloc, ApiConfigurationState>(
@@ -32,7 +34,7 @@ Widget apiConfigurationEdit(BuildContext context) {
                 }
                 return TextFormField(
                   initialValue: state.apiBaseUrl,
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(fontFamily: 'WorkSans', color: Colors.black),
                   decoration: InputDecoration(hintText: 'Enter api base url'),
                   onChanged: (value) {
                     context
@@ -52,7 +54,7 @@ Widget apiConfigurationEdit(BuildContext context) {
                       context
                           .read<ApiConfigurationBloc>()
                           .add(ApiBaseUrlUpdated());
-                          Navigator.of(context).pop();
+                      Navigator.of(context).pop();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff023563),
@@ -60,7 +62,14 @@ Widget apiConfigurationEdit(BuildContext context) {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Text('Update'),
+                      child: Text(
+                        'Update',
+                        style: TextStyle(
+                          fontFamily: 'Nunito',
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   );
                 },

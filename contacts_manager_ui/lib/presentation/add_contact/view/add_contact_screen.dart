@@ -12,7 +12,13 @@ class AddContactScreen extends StatelessWidget {
       create: (context) => AddContactBloc(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('New Contact'),
+          title: Text(
+            'New Contact',
+            style: TextStyle(
+              fontFamily: 'Nunito',
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           centerTitle: true,
         ),
         body: Container(
@@ -25,7 +31,7 @@ class AddContactScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       CircleAvatar(
-                        backgroundColor: Colors.grey,
+                        backgroundColor: Colors.grey[400],
                         radius: 60.0,
                         child: Icon(
                           Icons.person,
@@ -40,8 +46,25 @@ class AddContactScreen extends StatelessWidget {
                           backgroundColor: Colors.grey,
                           foregroundColor: Colors.white,
                         ),
-                        child: Text(
-                          'Add Photo',
+                        child: SizedBox(
+                          width: 100,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.photo_camera_outlined,
+                                color: Colors.white,
+                              ),
+                              SizedBox(width: 5.0),
+                              Text(
+                                'Add Photo',
+                                style: TextStyle(
+                                  fontFamily: 'Nunito',
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -51,6 +74,7 @@ class AddContactScreen extends StatelessWidget {
                 Text(
                   'Name:',
                   style: TextStyle(
+                    fontFamily: 'WorkSans',
                     fontSize: 18.0,
                   ),
                 ),
@@ -58,6 +82,7 @@ class AddContactScreen extends StatelessWidget {
                   builder: (context, state) {
                     return TextField(
                       cursorColor: Colors.black,
+                      style: TextStyle(fontFamily: 'WorkSans'),
                       decoration: InputDecoration(
                         hintText: 'Enter full name',
                         hintStyle: TextStyle(
@@ -86,6 +111,7 @@ class AddContactScreen extends StatelessWidget {
                 Text(
                   'Email Address:',
                   style: TextStyle(
+                    fontFamily: 'WorkSans',
                     fontSize: 18.0,
                   ),
                 ),
@@ -94,6 +120,7 @@ class AddContactScreen extends StatelessWidget {
                   builder: (context, state) {
                     return TextField(
                       cursorColor: Colors.black,
+                      style: TextStyle(fontFamily: 'WorkSans'),
                       decoration: InputDecoration(
                         hintText: 'Enter email address',
                         hintStyle: TextStyle(
@@ -122,6 +149,7 @@ class AddContactScreen extends StatelessWidget {
                 Text(
                   'Phone Number:',
                   style: TextStyle(
+                    fontFamily: 'WorkSans',
                     fontSize: 18.0,
                   ),
                 ),
@@ -130,6 +158,7 @@ class AddContactScreen extends StatelessWidget {
                   builder: (context, state) {
                     return TextField(
                       cursorColor: Colors.black,
+                      style: TextStyle(fontFamily: 'WorkSans'),
                       decoration: InputDecoration(
                         hintText: 'Enter phone number',
                         hintStyle: TextStyle(
@@ -183,6 +212,11 @@ class AddContactScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
                             'Submit',
+                            style: TextStyle(
+                              fontFamily: 'Nunito',
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),

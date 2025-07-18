@@ -29,12 +29,16 @@ class ContactListScreen extends StatelessWidget {
                     ),
                     builder: (BuildContext context) {
                       return BlocProvider(
-                        create: (context) => ApiConfigurationBloc()..add(ApiBaseUrlInitialized()),
+                        create: (context) => ApiConfigurationBloc()
+                          ..add(ApiBaseUrlInitialized()),
                         child: apiConfigurationEdit(context),
                       );
                     });
               },
-              icon: Icon(Icons.settings_outlined),
+              icon: Icon(
+                Icons.settings_outlined,
+                color: Color(0xff023563),
+              ),
             )
           ],
         ),
@@ -60,30 +64,42 @@ class ContactListScreen extends StatelessWidget {
                     child: Text(
                       'Contacts',
                       style: TextStyle(
-                        fontSize: 48.0,
+                        fontFamily: 'Nunito',
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  SizedBox(height: 20.0),
-                  Expanded(
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: state.contacts.length,
-                      separatorBuilder: (context, index) => Divider(
-                        color: Colors.grey,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        if (state.contacts.isEmpty) {
-                          return Center(
-                            child: Text('No contacts yet. Press + to add'),
-                          );
-                        }
-
-                        final contact = state.contacts[index];
-                        return buildContactListWidget(context, contact);
-                      },
-                    ),
-                  ),
+                  state.contacts.isEmpty
+                      ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 50.0),
+                          child: Text(
+                            'No contacts yet. Press + to add',
+                            style: TextStyle(
+                              fontFamily: 'WorkSans',
+                              fontSize: 18.0,
+                            ),
+                          ),
+                        ),
+                      )
+                      : Expanded(
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            itemCount: state.contacts.length,
+                            separatorBuilder: (context, index) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Divider(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              final contact = state.contacts[index];
+                              return buildContactListWidget(context, contact);
+                            },
+                          ),
+                        ),
                 ],
               ),
             );

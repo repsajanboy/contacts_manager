@@ -23,15 +23,27 @@ class EditContactScreen extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('Confirm Delete'),
+                        title: Text(
+                          'Confirm Delete',
+                          style: TextStyle(
+                            fontFamily: 'Nunito',
+                          ),
+                        ),
                         content: Text(
-                            'Are you sure you want to delete this contact?'),
+                          'Are you sure you want to delete this contact?',
+                          style: TextStyle(
+                            fontFamily: 'WorkSans',
+                          ),
+                        ),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(),
                             child: Text(
-                              "Cancel",
-                              style: TextStyle(color: Colors.black),
+                              'Cancel',
+                              style: TextStyle(
+                                fontFamily: 'WorkSans',
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                           BlocBuilder<EditContactBloc, EditContactState>(
@@ -57,7 +69,12 @@ class EditContactScreen extends StatelessWidget {
                                   backgroundColor: Colors.red,
                                   foregroundColor: Colors.white,
                                 ),
-                                child: Text("Delete"),
+                                child: Text(
+                                  'Delete',
+                                  style: TextStyle(
+                                    fontFamily: 'WorkSans',
+                                  ),
+                                ),
                               );
                             },
                           ),
@@ -70,6 +87,7 @@ class EditContactScreen extends StatelessWidget {
                   Text(
                     'Delete',
                     style: TextStyle(
+                      fontFamily: 'Nunito',
                       fontSize: 18.0,
                       color: Colors.red,
                     ),
@@ -88,16 +106,48 @@ class EditContactScreen extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.all(20.0),
-              decoration: BoxDecoration(color: Colors.grey[300]),
+              decoration: BoxDecoration(color: Colors.grey[200]),
               child: Center(
-                child: CircleAvatar(
-                  radius: 60.0,
-                  backgroundColor: Colors.grey,
-                  child: Icon(
-                    Icons.person,
-                    size: 75,
-                    color: Colors.white,
-                  ),
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 60.0,
+                      backgroundColor: Colors.grey[400],
+                      child: Icon(
+                        Icons.person,
+                        size: 75,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 5.0),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey,
+                        foregroundColor: Colors.white,
+                      ),
+                      child: SizedBox(
+                        width: 90,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.photo_camera_outlined,
+                              color: Colors.white,
+                            ),
+                            SizedBox(width: 5.0),
+                            Text(
+                              'Edit Photo',
+                              style: TextStyle(
+                                fontFamily: 'Nunito',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -113,12 +163,14 @@ class EditContactScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Name:'),
                         BlocBuilder<EditContactBloc, EditContactState>(
                           builder: (context, state) {
                             return TextFormField(
                               initialValue: state.name ?? contact.name,
+                              cursorColor: Colors.black,
+                              style: TextStyle(fontFamily: 'WorkSans'),
                               decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.person_outline),
                                 border: UnderlineInputBorder(
                                   borderSide: BorderSide.none,
                                 ),
@@ -139,12 +191,14 @@ class EditContactScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Email Address:'),
                         BlocBuilder<EditContactBloc, EditContactState>(
                           builder: (context, state) {
                             return TextFormField(
                               initialValue: state.email ?? contact.email,
+                              cursorColor: Colors.black,
+                              style: TextStyle(fontFamily: 'WorkSans'),
                               decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.email_outlined),
                                 border: UnderlineInputBorder(
                                   borderSide: BorderSide.none,
                                 ),
@@ -165,13 +219,15 @@ class EditContactScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Phone Number:'),
                         BlocBuilder<EditContactBloc, EditContactState>(
                           builder: (context, state) {
                             return TextFormField(
                               initialValue:
                                   state.phoneNumber ?? contact.phoneNumber,
+                              cursorColor: Colors.black,
+                              style: TextStyle(fontFamily: 'WorkSans'),
                               decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.phone_outlined),
                                 border: UnderlineInputBorder(
                                   borderSide: BorderSide.none,
                                 ),
@@ -224,6 +280,11 @@ class EditContactScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
                         'Update Contact',
+                        style: TextStyle(
+                          fontFamily: 'Nunito',
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

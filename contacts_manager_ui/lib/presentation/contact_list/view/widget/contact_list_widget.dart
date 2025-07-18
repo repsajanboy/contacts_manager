@@ -12,11 +12,11 @@ Widget buildContactListWidget(BuildContext context, ContactModel contact) {
       );
     },
     child: Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: Colors.grey,
+            backgroundColor: Colors.grey[400],
             child: Icon(
               Icons.person,
               color: Colors.white,
@@ -25,7 +25,10 @@ Widget buildContactListWidget(BuildContext context, ContactModel contact) {
           SizedBox(width: 16.0),
           Text(
             contact.name ?? '',
-            style: TextStyle(fontSize: 16.0),
+            style: TextStyle(
+              fontFamily: 'WorkSans',
+              fontSize: 18.0,
+            ),
           ),
         ],
       ),

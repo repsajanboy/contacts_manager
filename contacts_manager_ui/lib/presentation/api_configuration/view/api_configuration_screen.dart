@@ -25,7 +25,7 @@ class ApiConfigurationScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          if (state is ApiBaseUrlNotConfigured) {
+          if (state is  ApiBaseUrlNotConfigured) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
@@ -35,13 +35,16 @@ class ApiConfigurationScreen extends StatelessWidget {
                   Text(
                     'Enter your base api address:',
                     style: TextStyle(
+                      fontFamily: 'Nunito',
                       fontSize: 18.0,
+                      fontWeight: FontWeight.w600
                     ),
                   ),
                   SizedBox(height: 8.0),
                   TextField(
                     controller: _baseApiController,
                     cursorColor: Colors.black,
+                    style: TextStyle(fontFamily: 'WorkSans'),
                     decoration: InputDecoration(
                         hintText: 'https://localhost:5001',
                         hintStyle: TextStyle(
@@ -83,7 +86,11 @@ class ApiConfigurationScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
                           'Continue',
-                          style: TextStyle(fontSize: 18.0),
+                          style: TextStyle(
+                            fontFamily: 'Nunito',
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
