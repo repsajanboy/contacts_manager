@@ -41,8 +41,17 @@ class EditContactScreen extends StatelessWidget {
                                   context
                                       .read<EditContactBloc>()
                                       .add(ContactDeleted(id: contact.id));
+                                  BlocProvider.of<ContactListBloc>(context)
+                                      .add(ContactListFetched());
                                   Navigator.pushNamed(
-                                      context, RouteNames.contactListScreen);
+                                          context, RouteNames.contactListScreen)
+                                      .then((_) {
+                                    if (!context.mounted) {
+                                      return;
+                                    }
+                                    BlocProvider.of<ContactListBloc>(context)
+                                        .add(ContactListFetched());
+                                  });
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.red,
@@ -192,6 +201,20 @@ class EditContactScreen extends StatelessWidget {
                       context
                           .read<EditContactBloc>()
                           .add(EditContactSaved(id: contact.id));
+                      final updatedContact = ContactModel(
+                        id: state.id,
+                        name: state.name,
+                        email: state.email,
+                        phoneNumber: state.phoneNumber,
+                        profilePicture: state.profilePicture,
+                        dateCreated: state.dateCreated,
+                      );
+                      Navigator.of(context).pop();
+                      Navigator.pushReplacementNamed(
+                        context,
+                        RouteNames.contactScreen,
+                        arguments: updatedContact,
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff023563),

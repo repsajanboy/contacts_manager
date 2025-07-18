@@ -160,8 +160,20 @@ class AddContactScreen extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () async {
-                          context.read<AddContactBloc>().add(AddContactSubmitted());
-                          Navigator.pushNamed(context, RouteNames.contactListScreen);
+                          context
+                              .read<AddContactBloc>()
+                              .add(AddContactSubmitted());
+                          BlocProvider.of<ContactListBloc>(context)
+                              .add(ContactListFetched());
+                          Navigator.pushNamed(
+                                  context, RouteNames.contactListScreen)
+                              .then((_) {
+                            if (!context.mounted) {
+                              return;
+                            }
+                            BlocProvider.of<ContactListBloc>(context)
+                                .add(ContactListFetched());
+                          });
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xff023563),
