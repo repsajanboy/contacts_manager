@@ -1,4 +1,5 @@
 import 'package:contacts_manager_ui/data/api/contact_api.dart';
+import 'package:contacts_manager_ui/data/model/add_contact_model.dart';
 import 'package:contacts_manager_ui/data/model/contact_model.dart';
 
 class ContactRepository {
@@ -12,8 +13,8 @@ class ContactRepository {
     }).toList();
   }
 
-  Future<void> addContact(Map<String, dynamic> data) async {
-    await contactApi.createContact(data);
+  Future<void> addContact(AddContactModel contact) async {
+    await contactApi.createContact(contact);
   }
 
   Future<void> updateContact(int id, Map<String, dynamic> data) async {

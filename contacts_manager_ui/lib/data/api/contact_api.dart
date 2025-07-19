@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:contacts_manager_ui/data/model/add_contact_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ContactApi {
@@ -26,18 +28,31 @@ class ContactApi {
 
   Future<dynamic> getContact(int id) async {}
 
-  Future<void> createContact(Map<String, dynamic> data) async {
+  Future<void> createContact(AddContactModel contact) async {
     final baseUrl = await _getBaseUrl();
     if (baseUrl == null) {
       throw Exception("Base URL not set.");
     }
 
     final url = Uri.parse('$baseUrl/api/contacts');
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(data),
-    );
+    final request = http.MultipartRequest('POST', url);
+    request.fields['name'] = contact.name!;
+    request.fields['email'] = contact.email!;
+    request.fields['phoneNumber'] = contact.phoneNumber!;
+
+    if (contact.profilePicture != null) {
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'profilePicture',
+          contact.profilePicture!.path,
+          filename: basename(
+            contact.profilePicture!.path,
+          ),
+        ),
+      );
+    }
+
+    final response = await request.send();
 
     if (response.statusCode == 201) {
       print('Added contact successfully');
@@ -59,7 +74,7 @@ class ContactApi {
       body: jsonEncode(data),
     );
 
-    if(response.statusCode == 204) {
+    if (response.statusCode == 204) {
       print('Contact updated successfully');
     } else {
       throw Exception("Failed to delete contact: ${response.statusCode}");

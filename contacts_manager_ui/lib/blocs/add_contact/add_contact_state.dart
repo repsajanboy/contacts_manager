@@ -5,7 +5,7 @@ class AddContactState extends Equatable {
   final String? name;
   final String? email;
   final String? phoneNumber;
-  final String? profilePicture;
+  final File? profilePicture;
   final DateTime? dateCreated;
 
   const AddContactState({
@@ -20,7 +20,7 @@ class AddContactState extends Equatable {
     String? name,
     String? email,
     String? phoneNumber,
-    String? profilePicture,
+    File? profilePicture,
     DateTime? dateCreated,
   }) {
     return AddContactState(

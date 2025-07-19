@@ -21,7 +21,7 @@ class AddContactPhoneNumberChanged extends AddContactEvent {
 }
 
 class AddContactProfilePictureChanged extends AddContactEvent {
-  final String? profilePicture;
+  final File? profilePicture;
 
   AddContactProfilePictureChanged({required this.profilePicture});
 }

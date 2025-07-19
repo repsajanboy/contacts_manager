@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:contacts_manager_ui/blocs/bloc_barrel.dart';
 import 'package:contacts_manager_ui/routing/app_router_names.dart';
 import 'package:flutter/material.dart';
@@ -5,14 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddContactScreen extends StatelessWidget {
-  const AddContactScreen({super.key});
+  AddContactScreen({super.key});
 
-  Future<void> _pickImage(ImageSource source) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: source);
-
-    print(pickedFile!.name);
-  }
+  final picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -38,44 +35,66 @@ class AddContactScreen extends StatelessWidget {
                 Center(
                   child: Column(
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.grey[400],
-                        radius: 60.0,
-                        child: Icon(
-                          Icons.person,
-                          color: Colors.white,
-                          size: 75.0,
-                        ),
+                      BlocBuilder<AddContactBloc, AddContactState>(
+                        builder: (context, state) {
+                          return CircleAvatar(
+                            backgroundColor: Colors.grey[400],
+                            backgroundImage: state.profilePicture != null
+                                ? FileImage(state.profilePicture!)
+                                : null,
+                            radius: 60.0,
+                            child: state.profilePicture == null
+                                ? Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                    size: 75,
+                                  )
+                                : null,
+                          );
+                        },
                       ),
                       SizedBox(height: 5.0),
-                      ElevatedButton(
-                        onPressed: () {
-                          _pickImage(ImageSource.gallery);
+                      BlocBuilder<AddContactBloc, AddContactState>(
+                        builder: (context, state) {
+                          return ElevatedButton(
+                            onPressed: () async {
+                              final pickedFile = await picker.pickImage(
+                                  source: ImageSource.gallery);
+                              if (pickedFile != null) {
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                context.read<AddContactBloc>().add(
+                                    AddContactProfilePictureChanged(
+                                        profilePicture: File(pickedFile.path)));
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey,
+                              foregroundColor: Colors.white,
+                            ),
+                            child: SizedBox(
+                              width: 100,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.photo_camera_outlined,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Text(
+                                    'Add Photo',
+                                    style: TextStyle(
+                                      fontFamily: 'Nunito',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                          foregroundColor: Colors.white,
-                        ),
-                        child: SizedBox(
-                          width: 100,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.photo_camera_outlined,
-                                color: Colors.white,
-                              ),
-                              SizedBox(width: 5.0),
-                              Text(
-                                'Add Photo',
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ),
                     ],
                   ),

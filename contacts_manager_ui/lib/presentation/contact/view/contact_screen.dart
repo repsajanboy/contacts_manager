@@ -1,5 +1,6 @@
 import 'package:contacts_manager_ui/data/model/contact_model.dart';
 import 'package:contacts_manager_ui/routing/app_router_names.dart';
+import 'package:contacts_manager_ui/utils/global_sharedpref.dart';
 import 'package:flutter/material.dart';
 
 class ContactScreen extends StatelessWidget {
@@ -51,11 +52,17 @@ class ContactScreen extends StatelessWidget {
               child: CircleAvatar(
                 radius: 60.0,
                 backgroundColor: Colors.grey[400],
-                child: Icon(
-                  Icons.person,
-                  size: 75,
-                  color: Colors.white,
-                ),
+                backgroundImage: (contact.profilePicture != null &&
+                        contact.profilePicture!.isNotEmpty)
+                    ? NetworkImage(
+                        '${GlobalSharedpref.globalBaseUrl}/${contact.profilePicture}')
+                    : null,
+                child: contact.profilePicture == ""
+                    ? Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      )
+                    : SizedBox(),
               ),
             ),
           ),
