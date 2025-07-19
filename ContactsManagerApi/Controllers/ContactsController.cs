@@ -33,12 +33,39 @@ namespace ContactManagerApi.Controllers
 
         // POST: /api/contacts
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Contact contact)
+        public async Task<IActionResult> Create([FromForm] AddContactDTO contactDTO)
         {
+            String? filePath = "";
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            contact.DateCreated = DateTime.UtcNow;
+            if (contactDTO.ProfilePicture != null)
+            {
+                var uploadsDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+
+                if (!Directory.Exists(uploadsDir))
+                    Directory.CreateDirectory(uploadsDir);
+
+                var uniqueFileName = Guid.NewGuid() + Path.GetExtension(contactDTO.ProfilePicture.FileName);
+                var fullPath = Path.Combine(uploadsDir, uniqueFileName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await contactDTO.ProfilePicture.CopyToAsync(stream);
+                }
+
+                filePath = $"uploads/{uniqueFileName}";
+            }
+
+            var contact = new Contact
+            {
+                Name = contactDTO.Name,
+                Email = contactDTO.Email,
+                PhoneNumber = contactDTO.PhoneNumber,
+                ProfilePicture = filePath,
+                DateCreated = DateTime.UtcNow,
+            };
 
             _context.Contacts.Add(contact);
             await _context.SaveChangesAsync();

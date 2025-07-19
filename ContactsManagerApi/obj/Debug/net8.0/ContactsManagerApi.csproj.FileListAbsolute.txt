@@ -168,3 +168,4 @@
 /Users/repsajanboy/Developer/tech_exams/contacts_manager/ContactsManagerApi/obj/Debug/net8.0/ContactsManagerApi.pdb
 /Users/repsajanboy/Developer/tech_exams/contacts_manager/ContactsManagerApi/obj/Debug/net8.0/ContactsManagerApi.genruntimeconfig.cache
 /Users/repsajanboy/Developer/tech_exams/contacts_manager/ContactsManagerApi/obj/Debug/net8.0/ref/ContactsManagerApi.dll
+/Users/repsajanboy/Developer/tech_exams/contacts_manager/ContactsManagerApi/bin/Debug/net8.0/ContactsManagerApi.staticwebassets.runtime.json
