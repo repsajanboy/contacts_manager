@@ -1,5 +1,6 @@
 import 'package:contacts_manager_ui/data/model/contact_model.dart';
 import 'package:contacts_manager_ui/routing/app_router_names.dart';
+import 'package:contacts_manager_ui/utils/global_sharedpref.dart';
 import 'package:flutter/material.dart';
 
 Widget buildContactListWidget(BuildContext context, ContactModel contact) {
@@ -17,10 +18,13 @@ Widget buildContactListWidget(BuildContext context, ContactModel contact) {
         children: [
           CircleAvatar(
             backgroundColor: Colors.grey[400],
-            child: Icon(
+            backgroundImage: (contact.profilePicture != null && contact.profilePicture!.isNotEmpty) ? NetworkImage(
+              '${GlobalSharedpref.globalBaseUrl}/${contact.profilePicture}'
+            ) : null,
+            child: contact.profilePicture == "" ? Icon(
               Icons.person,
               color: Colors.white,
-            ),
+            ) : SizedBox(),
           ),
           SizedBox(width: 16.0),
           Text(

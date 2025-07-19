@@ -8,7 +8,6 @@ import 'widget/api_configuration_edit.dart';
 
 class ContactListScreen extends StatelessWidget {
   const ContactListScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
