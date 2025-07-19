@@ -2,9 +2,17 @@ import 'package:contacts_manager_ui/blocs/bloc_barrel.dart';
 import 'package:contacts_manager_ui/routing/app_router_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddContactScreen extends StatelessWidget {
   const AddContactScreen({super.key});
+
+  Future<void> _pickImage(ImageSource source) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: source);
+
+    print(pickedFile!.name);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +49,9 @@ class AddContactScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 5.0),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _pickImage(ImageSource.gallery);
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey,
                           foregroundColor: Colors.white,
