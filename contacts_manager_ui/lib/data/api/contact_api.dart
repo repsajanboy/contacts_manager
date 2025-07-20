@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:contacts_manager_ui/data/model/add_contact_model.dart';
+import 'package:contacts_manager_ui/data/model/edit_contact_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,18 +62,34 @@ class ContactApi {
     }
   }
 
-  Future<dynamic> editContact(int id, Map<String, dynamic> data) async {
+  Future<dynamic> editContact(int id, EditContactModel updatedContact) async {
     final baseUrl = await _getBaseUrl();
     if (baseUrl == null) {
       throw Exception("Base URL not set.");
     }
 
     final url = Uri.parse('$baseUrl/api/contacts/$id');
-    final response = await http.put(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(data),
-    );
+    final request = http.MultipartRequest('PUT', url);
+    request.fields['names'] = updatedContact.name!;
+    request.fields['email'] = updatedContact.email!;
+    request.fields['phoneNumber'] = updatedContact.phoneNumber!;
+    request.fields['dateCreated'] = updatedContact.dateCreated!.toIso8601String();
+
+    if (updatedContact.updatedProfilePicture != null) {
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'profilePicture',
+          updatedContact.updatedProfilePicture!.path,
+          filename: basename(
+            updatedContact.updatedProfilePicture!.path,
+          ),
+        ),
+      );
+    } else {
+      request.fields['profilePicture'] = updatedContact.profilePicture!;
+    }
+
+    final response = await request.send();
 
     if (response.statusCode == 204) {
       print('Contact updated successfully');

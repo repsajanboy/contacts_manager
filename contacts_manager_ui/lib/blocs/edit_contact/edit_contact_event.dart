@@ -27,6 +27,12 @@ class EditContactPhoneNumberChanged extends EditContactEvent {
   EditContactPhoneNumberChanged({required this.phoneNumber});
 }
 
+class EditContactProfilePictureChanged extends EditContactEvent {
+  final File? updateProfilePicture;
+
+  EditContactProfilePictureChanged({required this.updateProfilePicture});
+}
+
 class EditContactSaved extends EditContactEvent {
   final int? id;
 

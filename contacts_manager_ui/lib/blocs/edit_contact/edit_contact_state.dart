@@ -6,6 +6,7 @@ class EditContactState extends Equatable {
   final String? email;
   final String? phoneNumber;
   final String? profilePicture;
+  final File? updateProfilePicture;
   final DateTime? dateCreated;
 
   const EditContactState({
@@ -14,6 +15,7 @@ class EditContactState extends Equatable {
     this.email,
     this.phoneNumber,
     this.profilePicture,
+    this.updateProfilePicture,
     this.dateCreated,
   });
 
@@ -23,6 +25,7 @@ class EditContactState extends Equatable {
     String? email,
     String? phoneNumber,
     String? profilePicture,
+    File? updateProfilePicture,
     DateTime? dateCreated,
   }) {
     return EditContactState(
@@ -31,6 +34,7 @@ class EditContactState extends Equatable {
       email: email ?? this.email,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       profilePicture: profilePicture ?? this.profilePicture,
+      updateProfilePicture: updateProfilePicture ?? this.updateProfilePicture,
       dateCreated: dateCreated ?? this.dateCreated,
     );
   }
@@ -42,6 +46,7 @@ class EditContactState extends Equatable {
     email,
     phoneNumber,
     profilePicture,
+    updateProfilePicture,
     dateCreated,
   ];
 }

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:contacts_manager_ui/data/model/contact_model.dart';
+import 'package:contacts_manager_ui/data/model/edit_contact_model.dart';
 import 'package:contacts_manager_ui/data/repository/contact_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +22,10 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
     on<EditContactPhoneNumberChanged>(
       (event, emit) => emit(state.copyWith(phoneNumber: event.phoneNumber)),
     );
+    on<EditContactProfilePictureChanged>(
+      (event, emit) => emit(
+          state.copyWith(updateProfilePicture: event.updateProfilePicture)),
+    );
     on<EditContactSaved>(_saveEditContact);
     on<EditContactInitialized>(_initializedContactValues);
   }
@@ -30,16 +37,21 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
     Emitter<EditContactState> emit,
   ) async {
     try {
-      Map<String, dynamic> data = {
-        "id": event.id,
-        "name": state.name,
-        "email": state.email,
-        "phoneNumber": state.phoneNumber,
-        "profilePicture": state.profilePicture,
-        "dateCreated": state.dateCreated!.toIso8601String()
-      };
+      final updatedContact = EditContactModel(
+        id: event.id,
+        name: state.name,
+        email: state.email,
+        phoneNumber: state.phoneNumber,
+        profilePicture: state.profilePicture,
+        updatedProfilePicture: state.updateProfilePicture,
+        dateCreated: state.dateCreated,
+      );
 
-      await contactRepository.updateContact(event.id!, data);
+      if(state.updateProfilePicture != null) {
+
+      }
+
+      await contactRepository.updateContact(event.id!, updatedContact);
     } on Exception catch (e) {
       print(e.toString());
     }

@@ -1,6 +1,7 @@
 import 'package:contacts_manager_ui/blocs/bloc_barrel.dart';
 import 'package:contacts_manager_ui/data/model/contact_model.dart';
 import 'package:contacts_manager_ui/routing/app_router_names.dart';
+import 'package:contacts_manager_ui/utils/global_sharedpref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -110,14 +111,23 @@ class EditContactScreen extends StatelessWidget {
               child: Center(
                 child: Column(
                   children: [
-                    CircleAvatar(
-                      radius: 60.0,
-                      backgroundColor: Colors.grey[400],
-                      child: Icon(
-                        Icons.person,
-                        size: 75,
-                        color: Colors.white,
-                      ),
+                    BlocBuilder<EditContactBloc, EditContactState>(
+                      builder: (context, state) {
+                        return CircleAvatar(
+                          radius: 60.0,
+                          backgroundColor: Colors.grey[400],
+                          backgroundImage: (state.profilePicture != null &&
+                                  state.profilePicture!.isNotEmpty)
+                              ? NetworkImage(
+                                  '${GlobalSharedpref.globalBaseUrl}/${contact.profilePicture}')
+                              : null,
+                          child: state.profilePicture == "" ? Icon(
+                            Icons.person,
+                            size: 75,
+                            color: Colors.white,
+                          ) : null,
+                        );
+                      },
                     ),
                     SizedBox(height: 5.0),
                     ElevatedButton(
