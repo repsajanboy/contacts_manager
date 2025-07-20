@@ -75,7 +75,7 @@ namespace ContactManagerApi.Controllers
 
         // PUT: /api/contacts/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Contact updated)
+        public async Task<IActionResult> Update(int id, [FromForm] Contact updated)
         {
             if (id != updated.Id)
                 return BadRequest("ID mismatch");
