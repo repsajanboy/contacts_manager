@@ -30,7 +30,12 @@ class ContactListScreen extends StatelessWidget {
                       return BlocProvider(
                         create: (context) => ApiConfigurationBloc()
                           ..add(ApiBaseUrlInitialized()),
-                        child: apiConfigurationEdit(context),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                          child: apiConfigurationEdit(context),
+                        ),
                       );
                     });
               },
@@ -71,32 +76,37 @@ class ContactListScreen extends StatelessWidget {
                   ),
                   state.contacts.isEmpty
                       ? Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 50.0),
-                          child: Text(
-                            'No contacts yet. Press + to add',
-                            style: TextStyle(
-                              fontFamily: 'WorkSans',
-                              fontSize: 18.0,
-                            ),
-                          ),
-                        ),
-                      )
-                      : Expanded(
-                          child: ListView.separated(
-                            shrinkWrap: true,
-                            itemCount: state.contacts.length,
-                            separatorBuilder: (context, index) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Divider(
-                                color: Colors.grey,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 50.0),
+                            child: Text(
+                              'No contacts yet. Press + to add',
+                              style: TextStyle(
+                                fontFamily: 'WorkSans',
+                                fontSize: 18.0,
                               ),
                             ),
-                            itemBuilder: (BuildContext context, int index) {
-                              final contact = state.contacts[index];
-                              return buildContactListWidget(context, contact);
+                          ),
+                        )
+                      : Expanded(
+                          child: RefreshIndicator(
+                            onRefresh: () async {
+                              BlocProvider.of<ContactListBloc>(context).add(ContactListFetched());
                             },
+                            child: ListView.separated(
+                              shrinkWrap: true,
+                              itemCount: state.contacts.length,
+                              separatorBuilder: (context, index) => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20.0),
+                                child: Divider(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              itemBuilder: (BuildContext context, int index) {
+                                final contact = state.contacts[index];
+                                return buildContactListWidget(context, contact);
+                              },
+                            ),
                           ),
                         ),
                 ],
