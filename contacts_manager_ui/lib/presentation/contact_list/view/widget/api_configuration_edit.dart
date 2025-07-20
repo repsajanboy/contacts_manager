@@ -1,4 +1,5 @@
 import 'package:contacts_manager_ui/blocs/bloc_barrel.dart';
+import 'package:contacts_manager_ui/utils/global_sharedpref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,6 +55,7 @@ Widget apiConfigurationEdit(BuildContext context) {
                       context
                           .read<ApiConfigurationBloc>()
                           .add(ApiBaseUrlUpdated());
+                          GlobalSharedpref.init();
                       Navigator.of(context).pop();
                     },
                     style: ElevatedButton.styleFrom(

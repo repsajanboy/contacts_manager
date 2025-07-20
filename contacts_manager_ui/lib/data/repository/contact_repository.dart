@@ -1,6 +1,7 @@
 import 'package:contacts_manager_ui/data/api/contact_api.dart';
 import 'package:contacts_manager_ui/data/model/add_contact_model.dart';
 import 'package:contacts_manager_ui/data/model/contact_model.dart';
+import 'package:contacts_manager_ui/data/model/edit_contact_model.dart';
 
 class ContactRepository {
 
@@ -17,8 +18,8 @@ class ContactRepository {
     await contactApi.createContact(contact);
   }
 
-  Future<void> updateContact(int id, Map<String, dynamic> data) async {
-    await contactApi.editContact(id, data);
+  Future<void> updateContact(int id, EditContactModel updatedContact) async {
+    await contactApi.editContact(id, updatedContact);
   }
 
   Future<void> deleteContact(int id) async {

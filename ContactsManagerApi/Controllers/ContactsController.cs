@@ -35,7 +35,7 @@ namespace ContactManagerApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] AddContactDTO contactDTO)
         {
-            String? filePath = "";
+            string? filePath = "";
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -75,19 +75,36 @@ namespace ContactManagerApi.Controllers
 
         // PUT: /api/contacts/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromForm] Contact updated)
+        public async Task<IActionResult> Update(int id, [FromForm] EditContactDTO updatedDTO)
         {
-            if (id != updated.Id)
+            if (id != updatedDTO.Id)
                 return BadRequest("ID mismatch");
 
             var existing = await _context.Contacts.FindAsync(id);
             if (existing is null)
                 return NotFound();
 
-            existing.Name = updated.Name;
-            existing.Email = updated.Email;
-            existing.PhoneNumber = updated.PhoneNumber;
-            existing.ProfilePicture = updated.ProfilePicture;
+            existing.Name = updatedDTO.Name;
+            existing.Email = updatedDTO.Email;
+            existing.PhoneNumber = updatedDTO.PhoneNumber;
+
+            if (updatedDTO.UpdatedProfilePicture != null)
+            {
+                var uploadsDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+
+                if (!Directory.Exists(uploadsDir))
+                    Directory.CreateDirectory(uploadsDir);
+
+                var uniqueFileName = Guid.NewGuid() + Path.GetExtension(updatedDTO.UpdatedProfilePicture.FileName);
+                var fullPath = Path.Combine(uploadsDir, uniqueFileName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await updatedDTO.UpdatedProfilePicture.CopyToAsync(stream);
+                }
+
+                existing.ProfilePicture = $"uploads/{uniqueFileName}";
+            }
 
             await _context.SaveChangesAsync();
             return NoContent();

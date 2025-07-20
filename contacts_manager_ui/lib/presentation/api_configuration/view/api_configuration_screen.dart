@@ -1,5 +1,6 @@
 import 'package:contacts_manager_ui/blocs/bloc_barrel.dart';
 import 'package:contacts_manager_ui/routing/app_router_names.dart';
+import 'package:contacts_manager_ui/utils/global_sharedpref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -76,6 +77,7 @@ class ApiConfigurationScreen extends StatelessWidget {
                           );
                         } else {
                           _saveBaseAPI(baseApi);
+                          GlobalSharedpref.init();
                           BlocProvider.of<ContactListBloc>(context)
                               .add(ContactListFetched());
                           Navigator.pushNamed(

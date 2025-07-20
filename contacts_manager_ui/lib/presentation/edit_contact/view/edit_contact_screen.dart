@@ -1,14 +1,18 @@
+import 'dart:io';
+
 import 'package:contacts_manager_ui/blocs/bloc_barrel.dart';
 import 'package:contacts_manager_ui/data/model/contact_model.dart';
 import 'package:contacts_manager_ui/routing/app_router_names.dart';
 import 'package:contacts_manager_ui/utils/global_sharedpref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditContactScreen extends StatelessWidget {
-  const EditContactScreen({required this.contact, super.key});
+  EditContactScreen({required this.contact, super.key});
 
   final ContactModel contact;
+  final picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -116,46 +120,64 @@ class EditContactScreen extends StatelessWidget {
                         return CircleAvatar(
                           radius: 60.0,
                           backgroundColor: Colors.grey[400],
-                          backgroundImage: (state.profilePicture != null &&
+                          backgroundImage:(state.updateProfilePicture != null) ? FileImage(state.updateProfilePicture!) : (state.profilePicture != null &&
                                   state.profilePicture!.isNotEmpty)
                               ? NetworkImage(
                                   '${GlobalSharedpref.globalBaseUrl}/${contact.profilePicture}')
                               : null,
-                          child: state.profilePicture == "" ? Icon(
-                            Icons.person,
-                            size: 75,
-                            color: Colors.white,
-                          ) : null,
+                          child: state.profilePicture == ""
+                              ? Icon(
+                                  Icons.person,
+                                  size: 75,
+                                  color: Colors.white,
+                                )
+                              : null,
                         );
                       },
                     ),
                     SizedBox(height: 5.0),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                        foregroundColor: Colors.white,
-                      ),
-                      child: SizedBox(
-                        width: 90,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.photo_camera_outlined,
-                              color: Colors.white,
+                    BlocBuilder<EditContactBloc, EditContactState>(
+                      builder: (context, state) {
+                        return ElevatedButton(
+                          onPressed: () async {
+                            final pickedFile = await picker.pickImage(
+                                source: ImageSource.gallery);
+                            if (pickedFile != null) {
+                              if (!context.mounted) {
+                                return;
+                              }
+                              context.read<EditContactBloc>().add(
+                                  EditContactProfilePictureChanged(
+                                      updateProfilePicture:
+                                          File(pickedFile.path)));
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: SizedBox(
+                            width: 90,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.photo_camera_outlined,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(width: 5.0),
+                                Text(
+                                  'Edit Photo',
+                                  style: TextStyle(
+                                    fontFamily: 'Nunito',
+                                  ),
+                                ),
+                              ],
                             ),
-                            SizedBox(width: 5.0),
-                            Text(
-                              'Edit Photo',
-                              style: TextStyle(
-                                fontFamily: 'Nunito',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

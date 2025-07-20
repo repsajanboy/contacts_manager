@@ -70,7 +70,8 @@ class ContactApi {
 
     final url = Uri.parse('$baseUrl/api/contacts/$id');
     final request = http.MultipartRequest('PUT', url);
-    request.fields['names'] = updatedContact.name!;
+    request.fields['id'] = id.toString();
+    request.fields['name'] = updatedContact.name!;
     request.fields['email'] = updatedContact.email!;
     request.fields['phoneNumber'] = updatedContact.phoneNumber!;
     request.fields['dateCreated'] = updatedContact.dateCreated!.toIso8601String();
@@ -78,7 +79,7 @@ class ContactApi {
     if (updatedContact.updatedProfilePicture != null) {
       request.files.add(
         await http.MultipartFile.fromPath(
-          'profilePicture',
+          'updatedProfilePicture',
           updatedContact.updatedProfilePicture!.path,
           filename: basename(
             updatedContact.updatedProfilePicture!.path,
@@ -94,7 +95,7 @@ class ContactApi {
     if (response.statusCode == 204) {
       print('Contact updated successfully');
     } else {
-      throw Exception("Failed to delete contact: ${response.statusCode}");
+      throw Exception("Failed to update contact: ${response.statusCode}");
     }
   }
 
