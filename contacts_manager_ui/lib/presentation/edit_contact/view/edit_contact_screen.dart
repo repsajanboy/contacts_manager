@@ -60,6 +60,12 @@ class EditContactScreen extends StatelessWidget {
                                       .add(ContactDeleted(id: contact.id));
                                   BlocProvider.of<ContactListBloc>(context)
                                       .add(ContactListFetched());
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Contact has been deleted!'),
+                                      duration: Duration(seconds: 2),
+                                    ),
+                                  );
                                   Navigator.pushNamed(
                                           context, RouteNames.contactListScreen)
                                       .then((_) {
@@ -120,11 +126,13 @@ class EditContactScreen extends StatelessWidget {
                         return CircleAvatar(
                           radius: 60.0,
                           backgroundColor: Colors.grey[400],
-                          backgroundImage:(state.updateProfilePicture != null) ? FileImage(state.updateProfilePicture!) : (state.profilePicture != null &&
-                                  state.profilePicture!.isNotEmpty)
-                              ? NetworkImage(
-                                  '${GlobalSharedpref.globalBaseUrl}/${contact.profilePicture}')
-                              : null,
+                          backgroundImage: (state.updateProfilePicture != null)
+                              ? FileImage(state.updateProfilePicture!)
+                              : (state.profilePicture != null &&
+                                      state.profilePicture!.isNotEmpty)
+                                  ? NetworkImage(
+                                      '${GlobalSharedpref.globalBaseUrl}/${contact.profilePicture}')
+                                  : null,
                           child: state.profilePicture == ""
                               ? Icon(
                                   Icons.person,
@@ -296,6 +304,14 @@ class EditContactScreen extends StatelessWidget {
                         phoneNumber: state.phoneNumber,
                         profilePicture: state.profilePicture,
                         dateCreated: state.dateCreated,
+                      );
+                      BlocProvider.of<ContactListBloc>(context)
+                          .add(ContactListFetched());
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Contact has been updated!'),
+                          duration: Duration(seconds: 2),
+                        ),
                       );
                       Navigator.of(context).pop();
                       Navigator.pushReplacementNamed(

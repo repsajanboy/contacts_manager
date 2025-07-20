@@ -223,6 +223,12 @@ class AddContactScreen extends StatelessWidget {
                               .add(AddContactSubmitted());
                           BlocProvider.of<ContactListBloc>(context)
                               .add(ContactListFetched());
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Contact has been added!'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
                           Navigator.pushNamed(
                                   context, RouteNames.contactListScreen)
                               .then((_) {

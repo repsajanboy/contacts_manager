@@ -61,6 +61,7 @@ class ContactScreen extends StatelessWidget {
                     ? Icon(
                         Icons.person,
                         color: Colors.white,
+                        size: 75,
                       )
                     : SizedBox(),
               ),
