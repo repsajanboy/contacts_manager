@@ -12,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.WebHost.UseConfiguration(builder.Configuration);
+
 var app = builder.Build();
 
 app.UseStaticFiles();

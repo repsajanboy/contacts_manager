@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "Hash": "Iep3/4kpkmiTXLQhKW5pkfJ3olsJ4G3N8oic4EmwmAk=",
+  "Source": "ContactsManagerApi",
+  "BasePath": "_content/ContactsManagerApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ContactsManagerApi/wwwroot",
+      "Source": "ContactsManagerApi",
+      "ContentRoot": "/Users/repsajanboy/Developer/tech_exams/contacts_manager/ContactsManagerApi/wwwroot/",
+      "BasePath": "_content/ContactsManagerApi",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/Users/repsajanboy/Developer/tech_exams/contacts_manager/ContactsManagerApi/wwwroot/uploads/1c20fed5-f9da-4686-81d3-636a9fa3d777.jpg",
+      "SourceId": "ContactsManagerApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/repsajanboy/Developer/tech_exams/contacts_manager/ContactsManagerApi/wwwroot/",
+      "BasePath": "_content/ContactsManagerApi",
+      "RelativePath": "uploads/1c20fed5-f9da-4686-81d3-636a9fa3d777.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/1c20fed5-f9da-4686-81d3-636a9fa3d777.jpg"
+    },
+    {
+      "Identity": "/Users/repsajanboy/Developer/tech_exams/contacts_manager/ContactsManagerApi/wwwroot/uploads/4ae4aeed-4a4e-4128-bd56-3e097af570c9.jpg",
+      "SourceId": "ContactsManagerApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/repsajanboy/Developer/tech_exams/contacts_manager/ContactsManagerApi/wwwroot/",
+      "BasePath": "_content/ContactsManagerApi",
+      "RelativePath": "uploads/4ae4aeed-4a4e-4128-bd56-3e097af570c9.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/4ae4aeed-4a4e-4128-bd56-3e097af570c9.jpg"
+    },
+    {
+      "Identity": "/Users/repsajanboy/Developer/tech_exams/contacts_manager/ContactsManagerApi/wwwroot/uploads/77580ef1-956b-4c24-9b49-69ccfa9c991e.JPG",
+      "SourceId": "ContactsManagerApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/repsajanboy/Developer/tech_exams/contacts_manager/ContactsManagerApi/wwwroot/",
+      "BasePath": "_content/ContactsManagerApi",
+      "RelativePath": "uploads/77580ef1-956b-4c24-9b49-69ccfa9c991e.JPG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/77580ef1-956b-4c24-9b49-69ccfa9c991e.JPG"
+    }
+  ]
+}
