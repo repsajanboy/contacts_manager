@@ -75,5 +75,6 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=QAContactManager2025" \
    -d mcr.microsoft.com/mssql/server
 
 
-##Limitation
+## Limitation
 Please use http for now instead of https it is configured to accept http.
+Sometimes Contact lists screen is not updating UI even after adding or deleting contact, if that happen please just refresh the app.
